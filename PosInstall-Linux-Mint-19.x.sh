@@ -9,13 +9,13 @@ URL_PPA_WINE="https://dl.winehq.org/wine-builds/ubuntu/"
 URL_GOOGLE_CHROME="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 URL_SIMPLE_NOTE="https://github.com/Automattic/simplenote-electron/releases/download/v1.8.0/Simplenote-linux-1.8.0-amd64.deb"
 URL_4K_VIDEO_DOWNLOADER="https://dl.4kdownload.com/app/4kvideodownloader_4.9.2-1_amd64.deb"
-URL_MEGA="https://mega.nz/linux/MEGAsync/xUbuntu_19.04/amd64/megasync-xUbuntu_19.04_amd64.deb"
 URL_FLUTTER="https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_v1.12.13+hotfix.5-stable.tar.xz"
 
 DIRETORIO_DOWNLOADS="$HOME/Downloads/programas"
 DOWNLOADS="$HOME/Downloads"
 DIRETORIO_DEVELOPMENT="$HOME/development"
 PROGRAMAS_PARA_INSTALAR=(
+  snap
   snapd
   mint-meta-codecs
   winff
@@ -88,8 +88,6 @@ sudo apt-key add winehq.key
 sudo apt-add-repository "deb $URL_PPA_WINE bionic main"
 # ---------------------------------------------------------------------- #
 
-
-
 # ----------------------------- EXECUÇÃO ----------------------------- #
 ## Atualizando o repositório depois da adição de novos repositórios ##
 sudo apt update -y
@@ -99,7 +97,7 @@ mkdir "$DIRETORIO_DOWNLOADS"
 
 wget -c "$URL_SIMPLE_NOTE"         -P "$DIRETORIO_DOWNLOADS"
 wget -c "$URL_4K_VIDEO_DOWNLOADER" -P "$DIRETORIO_DOWNLOADS"
-wget -c "$URL_MEGA"                -P "$DIRETORIO_DOWNLOADS"
+wget -c "$URL_GOOGLE_CHROME" -P "$DIRETORIO_DOWNLOADS"
 
 
 ## Instalando pacotes .deb baixados na sessão anterior ##
@@ -113,24 +111,25 @@ wget -c "$URL_FLUTTER"              -P "$DOWNLOADS"
 cd "$DIRETORIO_DEVELOPMENT"
 tar xf ~/Downloads/flutter_linux_v1.12.13+hotfix.5-stable.tar.xz
 cd
+
 # ---------------------------------------------------------------------- #
 
-##Instalando o Brave Browser
-sudo apt install apt-transport-https curl -y
 
-curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
+# ----------------------------- CASO EXISTA,  ----------------------------- #
 
+## Fix Broken Packages ##
+sudo apt update --fix-missing
+sudo apt install -f
+sudo dpkg --configure -a
+sudo apt clean
 sudo apt update
-
-sudo apt install brave-browser
-
 # ---------------------------------------------------------------------- #
 
 
 # Instalar programas no apt
 for nome_do_programa in ${PROGRAMAS_PARA_INSTALAR[@]}; do
   if ! dpkg -l | grep -q $nome_do_programa; then # Só instala se já não estiver instalado
-    apt install "$nome_do_programa" -y
+    apt-get install "$nome_do_programa" -y
   else
     echo "[INSTALADO] - $nome_do_programa"
   fi
