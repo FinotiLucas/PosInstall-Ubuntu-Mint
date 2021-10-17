@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 # ----------------------------- VARIÁVEIS ----------------------------- #
 
@@ -58,6 +57,8 @@ PROGRAMAS_PARA_INSTALAR=(
 	fonts-firacode
 	github-desktop
 	docker.io
+	flatpak
+	fonts-firacode
 )
 # ---------------------------------------------------------------------- #
 
@@ -105,29 +106,38 @@ done
 ## Instalando pacotes Flatpak ##
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
+
+flatpak install flathub com.spotify.Client -y
+flatpak install flathub io.mrarm.mcpelauncher -y
+flatpak install flathub org.videolan.VLC -y
+flatpak install flathub org.gimp.GIMP -y
+flatpak install flathub us.zoom.Zoom -y
+flatpak install flathub com.valvesoftware.Steam -y
+flatpak install flathub com.discordapp.Discord -y
+flatpak install flathub com.github.micahflee.torbrowser-launcher -y
+flatpak install flathub org.telegram.desktop -y
+flatpak install flathub com.visualstudio.code -y
+flatpak install flathub org.chromium.Chromium -y
+flatpak install flathub org.inkscape.Inkscape -y
+flatpak install flathub io.dbeaver.DBeaverCommunity -y
+flatpak install flathub rest.insomnia.Insomnia -y
+flatpak install flathub org.gnome.Boxes -y
+flatpak install flathub com.getpostman.Postman -y
+flatpak install flathub com.spotify.Client -y
+flatpak install flathub com.stremio.Stremio -y
+flatpak install flathub nz.mega.MEGAsync -y
+flatpak install flathub org.qbittorrent.qBittorrent -y
+flatpak install flathub org.signal.Signal -y
+flatpak install flathub org.mozilla.Thunderbird -y
+flatpak install flathub io.bit3.WhatsAppQT -y
+flatpak install flathub net.cozic.joplin_desktop -y
+
+
+
+
 ## Instalando pacotes Snap ##
-sudo snap install inkscape
-sudo snap install gimp
-sudo snap install discord
-sudo snap install postman
-sudo snap install atom --classic
-sudo snap install android-studio --classic
-sudo snap install go --classic
-sudo snap install insomnia
-sudo snap install code --classic
-sudo snap install flutter --classic
-sudo snap install node --classic
-sudo snap install signal-desktop
-sudo snap install whatsdesk
-sudo snap install thunderbird
-sudo snap install electron-mail
-sudo snap install brave
-sudo snap install libreoffice
-sudo snap install bw
-sudo snap install vlc
 sudo snap install docker
-sudo snap install tor-middle-relay
-sudo snap install spotify
+
 # ---------------------------------------------------------------------- #
 
 sudo systemctl enable --now docker
